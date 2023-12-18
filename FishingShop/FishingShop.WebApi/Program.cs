@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using FishingShop.Services.Database;
+using FishingShop.Services.Interfaces;
+using FishingShop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,8 @@ builder.Services.AddDbContext<FishingShopDbContext>((services, options) =>
     var configuration = services.GetRequiredService<IConfiguration>();
     options.UseSqlServer(configuration.GetConnectionString("FishingShop"));
 });
+
+builder.Services.AddScoped<ITypeOfProductService, TypeOfProductDatabaseService>();
 
 var app = builder.Build();
 

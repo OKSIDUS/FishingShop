@@ -37,9 +37,16 @@ namespace FishingShop.Services
             
         }
 
-        public Task<TypeOfProduct> GetTypeOfProductAsync(int typeId)
+        public async Task<TypeOfProduct?> GetTypeOfProductAsync(int typeId)
         {
-            throw new NotImplementedException();
+            var typeOfProduct = await dbContext.Types.Where(t => t.Id == typeId).FirstOrDefaultAsync();
+
+            if(typeOfProduct is null)
+            {
+                return null;
+            }
+
+            return typeOfProduct;
         }
 
         public async Task<IEnumerable<TypeOfProduct>> GetTypeOfProductsAsync()

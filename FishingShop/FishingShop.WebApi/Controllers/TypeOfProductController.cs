@@ -25,6 +25,18 @@ namespace FishingShop.WebApi.Controllers
             return BadRequest();
         }
 
+        [HttpGet("/TypeOfProduct/{typeId}")]
+        public async Task<IActionResult> GetTypeOfProduct(int typeId)
+        {
+            var typeOfProduct = await service.GetTypeOfProductAsync(typeId);
+            if(typeOfProduct != null)
+            {
+                return Ok(typeOfProduct);
+            }
+
+            return BadRequest();
+        }
+
         [HttpPost("/TypeOfProduct/Create")]
         public async Task<IActionResult> Create(TypeOfProduct typeOfProduct)
         {

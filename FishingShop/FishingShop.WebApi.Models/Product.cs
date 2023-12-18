@@ -8,7 +8,7 @@
 
         public string Description { get; set; }
 
-        public int TypeOfProductId {  get; set; }
+        public int TypeOfProductId { get; set; } = 0;
 
         public TypeOfProduct TypeOfProduct { get; set; } = null!;
 

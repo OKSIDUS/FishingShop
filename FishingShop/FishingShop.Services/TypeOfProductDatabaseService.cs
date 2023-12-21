@@ -73,9 +73,21 @@ namespace FishingShop.Services
 
         }
 
-        public Task<bool> UpdateTypeOfProductAsync(TypeOfProduct typeOfProduct)
+        public async Task<bool> UpdateTypeOfProductAsync(TypeOfProduct typeOfProduct)
         {
-            throw new NotImplementedException();
+            if(typeOfProduct != null)
+            {
+                var type = await dbContext.Types.Where(t => t.Id == typeOfProduct.Id).FirstOrDefaultAsync();
+                if (type != null)
+                {
+                    dbContext.Entry(type).CurrentValues.SetValues(typeOfProduct);
+
+                    await dbContext.SaveChangesAsync();
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

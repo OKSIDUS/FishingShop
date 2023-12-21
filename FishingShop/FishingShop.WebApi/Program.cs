@@ -19,6 +19,7 @@ builder.Services.AddDbContext<FishingShopDbContext>((services, options) =>
 });
 
 builder.Services.AddScoped<ITypeOfProductService, TypeOfProductDatabaseService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 

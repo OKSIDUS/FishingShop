@@ -18,5 +18,18 @@ namespace FishingShop.WebApi.Controllers
             var products = await service.GetAllProductsAsync();
             return Ok(products);
         }
+
+        [HttpGet("/Products/Product/{productId}")]
+        public async Task<IActionResult> GetProduct(int productId)
+        {
+            var product = await service.GetProductAsync(productId);
+
+            if(product != null)
+            {
+                return Ok(product);
+            }
+
+            return BadRequest();
+        }
     }
 }

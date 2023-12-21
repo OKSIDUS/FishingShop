@@ -6,7 +6,7 @@ namespace FishingShop.Services.Interfaces
     {
         public Task<IEnumerable<Product>> GetAllProductsAsync();
 
-        public Task<Product> GetProductAsync(int productId);
+        public Task<Product?> GetProductAsync(int productId);
 
         public Task<bool> CreateProductAsync(Product product);
 

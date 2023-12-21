@@ -2,19 +2,14 @@
 using FishingShop.Services.Interfaces;
 using FishingShop.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FishingShop.Services
 {
-    public class ProductService : IProductService
+    public class ProductDatabaseService : IProductService
     {
         private readonly FishingShopDbContext dbContext;
 
-        public ProductService(FishingShopDbContext dbContext)
+        public ProductDatabaseService(FishingShopDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -35,9 +30,16 @@ namespace FishingShop.Services
             return products;
         }
 
-        public Task<Product> GetProductAsync(int productId)
+        public async Task<Product?> GetProductAsync(int productId)
         {
-            throw new NotImplementedException();
+            var product = await dbContext.Products.Where(p => p.ProductId == productId).FirstOrDefaultAsync();
+
+            if(product != null)
+            {
+                return product;
+            }
+
+            return null;
         }
 
         public Task<bool> UpdateProductAsync(Product product)

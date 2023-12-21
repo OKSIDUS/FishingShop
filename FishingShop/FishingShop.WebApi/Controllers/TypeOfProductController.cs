@@ -53,5 +53,20 @@ namespace FishingShop.WebApi.Controllers
 
             return BadRequest();
         }
+
+        [HttpDelete("/TypeOfProduct/Delete/{typeId}")]
+        public async Task<IActionResult> Delete(int typeId)
+        {
+            if (typeId > 0)
+            {
+                var result = await service.RemoveTypeOfProductAsync(typeId);
+                if (result)
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest();
+        }
     }
 }

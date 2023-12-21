@@ -55,9 +55,22 @@ namespace FishingShop.Services
             return types;
         }
 
-        public Task<bool> RemoveTypeOfProductAsync(int typeId)
+        public async Task<bool> RemoveTypeOfProductAsync(int typeId)
         {
-            throw new NotImplementedException();
+            if (typeId > 0)
+            {
+                var typeOfProduct = await dbContext.Types.Where(t => t.Id == typeId).FirstOrDefaultAsync();
+
+                if (typeOfProduct != null)
+                {
+                    dbContext.Types.Remove(typeOfProduct);
+                    dbContext.SaveChanges();
+                    return true;
+                }
+            }
+
+            return false;
+
         }
 
         public Task<bool> UpdateTypeOfProductAsync(TypeOfProduct typeOfProduct)

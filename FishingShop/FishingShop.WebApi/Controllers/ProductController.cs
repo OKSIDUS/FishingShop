@@ -1,11 +1,18 @@
 ﻿using FishingShop.Services.Interfaces;
+using FishingShop.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace FishingShop.WebApi.Controllers
 {
     public class ProductController : Controller
     {
         private IProductService service;
+        private JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            ReferenceHandler = ReferenceHandler.Preserve,
+        };
 
         public ProductController(IProductService service)
         {
@@ -24,9 +31,25 @@ namespace FishingShop.WebApi.Controllers
         {
             var product = await service.GetProductAsync(productId);
 
-            if(product != null)
+            if (product != null)
             {
-                return Ok(product);
+                var json = JsonSerializer.Serialize(product, options);
+                return Ok(json);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost("/Products/Product/Create")]
+        public async Task<IActionResult> CreateProduct(Product product)
+        {
+            if (product != null)
+            {
+                var result = await service.CreateProductAsync(product);
+                if (result)
+                {
+                    return Ok();
+                }
             }
 
             return BadRequest();

@@ -14,9 +14,24 @@ namespace FishingShop.Services
             this.dbContext = dbContext;
         }
 
-        public Task<bool> CreateProductAsync(Product product)
+        public async Task<bool> CreateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            if (product != null)
+            {
+                await dbContext.Products.AddAsync(new Product
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    TypeOfProductId = product.TypeOfProductId,
+                    TypeOfProduct = product.TypeOfProduct,
+                    Price = product.Price,
+                    Count = product.Count,
+                });
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
         public Task<bool> DeleteProductAsync(Product product)

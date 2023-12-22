@@ -39,7 +39,7 @@ namespace FishingShop.Services
 
         public async Task<TypeOfProduct?> GetTypeOfProductAsync(int typeId)
         {
-            var typeOfProduct = await dbContext.Types.Where(t => t.Id == typeId).FirstOrDefaultAsync();
+            var typeOfProduct = await dbContext.Types.Where(t => t.Id == typeId).Include(t => t.Products).FirstOrDefaultAsync();
 
             if(typeOfProduct is null)
             {

@@ -1,4 +1,4 @@
-namespace FishingShop.WepApp.Models
+namespace FishingShop.WebApp.Models
 {
     public class ErrorViewModel
     {

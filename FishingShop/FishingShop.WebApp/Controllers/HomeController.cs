@@ -1,8 +1,8 @@
-﻿using FishingShop.WepApp.Models;
+﻿using FishingShop.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace FishingShop.WepApp.Controllers
+namespace FishingShop.WebApp.Controllers
 {
     public class HomeController : Controller
     {

@@ -57,9 +57,20 @@ namespace FishingShop.Services
             return null;
         }
 
-        public Task<bool> UpdateProductAsync(Product product)
+        public async Task<bool> UpdateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            if(product != null)
+            {
+                var checkProduct = await dbContext.Products.Where(p => p.ProductId == product.ProductId).FirstOrDefaultAsync();
+                if(checkProduct != null)
+                {
+                    dbContext.Entry(checkProduct).CurrentValues.SetValues(product);
+                    await dbContext.SaveChangesAsync();
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

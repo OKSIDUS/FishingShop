@@ -54,5 +54,20 @@ namespace FishingShop.WebApi.Controllers
 
             return BadRequest();
         }
+
+        [HttpPost("/Products/Product/Update")]
+        public async Task<IActionResult> UpdateProduct(Product product)
+        {
+            if (product != null)
+            {
+                var result = await service.UpdateProductAsync(product);
+                if (result)
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest();
+        }
     }
 }

@@ -34,9 +34,20 @@ namespace FishingShop.Services
             return false;
         }
 
-        public Task<bool> DeleteProductAsync(Product product)
+        public async Task<bool> DeleteProductAsync(int productId)
         {
-            throw new NotImplementedException();
+            if (productId > 0)
+            {
+                var product = await dbContext.Products.Where(p => p.ProductId == productId).FirstOrDefaultAsync();
+                if (product != null)
+                {
+                    dbContext.Remove(product);
+                    await dbContext.SaveChangesAsync();
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()

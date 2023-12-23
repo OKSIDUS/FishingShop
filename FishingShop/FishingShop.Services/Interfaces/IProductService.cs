@@ -12,6 +12,6 @@ namespace FishingShop.Services.Interfaces
 
         public Task<bool> UpdateProductAsync(Product product);
 
-        public Task<bool> DeleteProductAsync(Product product);
+        public Task<bool> DeleteProductAsync(int productId);
     }
 }

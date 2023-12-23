@@ -69,5 +69,20 @@ namespace FishingShop.WebApi.Controllers
 
             return BadRequest();
         }
+
+        [HttpDelete("/Products/Product/Delete/{productId}")]
+        public async Task<IActionResult> DeleteProduct(int productId)
+        {
+            if(productId > 0)
+            {
+                var result = await service.DeleteProductAsync(productId);
+                if (result)
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest();
+        }
     }
 }
